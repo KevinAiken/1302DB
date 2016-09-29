@@ -14,8 +14,7 @@ public class Relation {
   // Actual data storage (list of tuples) for the relation.
   private ArrayList<Tuple> table;
 
-  private int i;
-  private int j;
+
 
   private String rToString = "";
 
@@ -40,7 +39,7 @@ public class Relation {
   // returns true if attribute with name aname exists in relation schema
   // false otherwise
   public boolean attributeExists(String aname) {
-        for(i = 0; i < attributes.size(); i++) {
+        for(int i = 0; i < attributes.size(); i++) {
             if(attributes.get(i) == aname) {
                 return true;
             }
@@ -50,7 +49,7 @@ public class Relation {
 
   // returns domain type of attribute aname; return null if not present
   public String attributeType(String aname) {
-        for(i = 0;  i < attributes.size(); i++) {
+        for(int i = 0;  i < attributes.size(); i++) {
             if(attributes.get(i).equals(aname)) {
                 return domains.get(i);
             }
@@ -60,7 +59,7 @@ public class Relation {
 
   // Print relational schema to screen.
   public void displaySchema() {
-      for(i = 0;  i < attributes.size();i++) {
+      for(int i = 0;  i < attributes.size();i++) {
         System.out.println(attributes.get(i));
       }
   }
@@ -78,7 +77,7 @@ public class Relation {
   // Print relation to screen (see output of run for formatting)
   // Use this for displaySchema();
   public void displayRelation() {
-        for(i = 0;  i < attributes.size() ;i++) {
+        for(int i = 0;  i < attributes.size() ;i++) {
             System.out.print(attributes.get(i) + ":" + domains.get(i));
             if(attributes.size() > i+1) {
                 System.out.print(",");
@@ -89,12 +88,11 @@ public class Relation {
   // Remove duplicate tuples from this relation
   public void removeDuplicates() {
       tempTable = table;
-      for(i = 0; i < table.size(); i++){
-          for(j = i+1; j < table.size(); j++){
+      for(int i = 0; i < table.size(); i++){
+          for(int j = i+1; j < table.size(); j++){
              if(tempTable.get(i).equals(table.get(j))){
                  table.remove(j);
                  j--;
-
              }
           }
       }
@@ -102,11 +100,9 @@ public class Relation {
 
   // Check Membership, return true if tuple t is present
   public boolean member(Tuple t) {
-    for(i = 0; i < table.size(); i++) {
-      if((table.get(i)).equals(t)) {
+    for(int i = 0; i < this.table.size(); i++) {
+      if((this.table.get(i)).equals(t)) {
         return true;
-      } else {
-        return false;
       }
     }
     return false;
@@ -116,7 +112,7 @@ public class Relation {
   public Relation union(Relation rX) {
     Relation sampleRelation = new Relation("sRelation", this.attributes,
     this.domains);
-    for(i = 0; i < this.table.size(); i++) {
+    for(int i = 0; i < this.table.size(); i++) {
       tempTuple = this.table.get(i).clone(this.attributes);
       tempTuple2 = rX.table.get(i).clone(rX.attributes);
       sampleRelation.addTuple(tempTuple);
@@ -128,36 +124,36 @@ public class Relation {
   }
 
   // Returns a relation of the tuples that both relations have
-  public Relation intersect(Relation r10) {
-    for(i = 0; i < this.table.size(); i++) {
-      if((r10.member(this.table.get(i)))) {
-        if(this.member(r10.table.get(i))) {
-          tempTuple = r10.table.get(i).clone(r10.attributes);
-          r10.addTuple(tempTuple);
-        }
+  public Relation intersect(Relation rX) {
+    Relation sampleRelation = new Relation("sRelation", this.attributes,
+    this.domains);
+    for(int i = 0; i < this.table.size(); i++) {
+      if((rX.member(this.table.get(i)))) {
+          tempTuple = this.table.get(i).clone(this.attributes);
+          sampleRelation.addTuple(tempTuple);
       }
     }
-    return r10;
+    return sampleRelation;
   }
 
   // Returns the difference of two relations
-  public Relation minus(Relation r10) {
-    for(i = 0; i < this.table.size(); i++) {
-      if((r10.member(this.table.get(i)))) {
-        if(this.member(r10.table.get(i))) {
-          r10.table.remove(r10.table.get(i).clone(r10.attributes));
-        }
+ public Relation minus(Relation rX) {
+    Relation sampleRelation = new Relation("sRelation", this.attributes,
+    this.domains);
+    for(int i = 0; i < this.table.size(); i++) {
+      tempTuple = this.table.get(i).clone(this.attributes);
+      if(!(rX.member(this.table.get(i)))) {
+        sampleRelation.addTuple(tempTuple);
       }
     }
-
-    return r10;
+    return sampleRelation;
   }
 
   // Return String version of relation; See output of run for format.
   public String toString() {
         rToString = "";
         rToString += this.name + "(";
-        for(i = 0; i < attributes.size(); i++) {
+        for(int i = 0; i < attributes.size(); i++) {
             rToString += (attributes.get(i) + ":" + domains.get(i));
             if(i+1 < attributes.size()) {
                 rToString += ",";

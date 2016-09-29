@@ -6,7 +6,6 @@ public class Tuple {
   private ArrayList<String> domains;
   private ArrayList<Comparable> tuple;
 
-  private int i;
   private String tToString = "";
 
   // METHODS
@@ -44,7 +43,7 @@ public class Tuple {
 
   public Tuple clone(ArrayList<String> attr) {
     Tuple cTuple = new Tuple(attr, this.domains);
-    for(i = 0; i < this.tuple.size(); i++) {
+    for(int i = 0; i < this.tuple.size(); i++) {
       switch (cTuple.domains.get(i)) {
           case "VARCHAR": cTuple.addStringComponent((String)this.tuple.get(i));
           break;
@@ -60,7 +59,7 @@ public class Tuple {
   // return String representation of tuple; See output of run for format.
   public String toString() {
        tToString = "";
-        for(i = 0; i< tuple.size() ;i++) {
+        for(int i = 0; i< tuple.size() ;i++) {
             if((i%attributes.size()) == 0) {
                 tToString += "\n" + tuple.get(i) + ":";
             } else {

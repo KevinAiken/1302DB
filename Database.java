@@ -5,10 +5,6 @@ public class Database {
 
     private Map<String,Relation> relations;
 
-    private int i;
-    private int j;
-    private int k;
-
     private FileInputStream fin1 = null;
     private BufferedReader infile1 = null;
 
@@ -29,7 +25,7 @@ public class Database {
 
     // Create the database object by reading from directory
     public void initializeDatabase(String dir) {
-        
+
         try {
             fin1 = new FileInputStream(dir);
             infile1 = new BufferedReader(new InputStreamReader(fin1));
@@ -39,10 +35,10 @@ public class Database {
         }
 
         // crafting the relation full of tuples
-        for(i = 0; i <  numberOfRelations; i++) {
-            ArrayList<String> attr1 = new ArrayList<String>(); 
+        for(int i = 0; i <  numberOfRelations; i++) {
+            ArrayList<String> attr1 = new ArrayList<String>();
             ArrayList<String> dom1 = new ArrayList<String>();
-            
+
             // Getting information about the relation from the files
             try {
                 nameOfRelation = infile1.readLine();
@@ -50,12 +46,12 @@ public class Database {
             } catch (IOException e) {
                 System.out.println("Error reading file");
             }
-            
+
             // Get attributes and domains to declare the relation
-            for(j = 0; j < numberOfColumns; j++) {
+            for(int j = 0; j < numberOfColumns; j++) {
                 try {
                     attr1.add(infile1.readLine());
-                    dom1.add(infile1.readLine());	
+                    dom1.add(infile1.readLine());
                 } catch (IOException e) {
                     System.out.println("Error reading file");
                 }
@@ -74,11 +70,11 @@ public class Database {
                 System.out.println("Error reading inner file");
             }
 
-            // crafting the tuple 
-            for(j = 0; j < numberOfTuples; j++) {
+            // crafting the tuple
+            for(int j = 0; j < numberOfTuples; j++) {
                 Tuple tTemp = new Tuple(attr1,dom1);
                 try {
-                    for(k = 0; k < dom1.size(); k++){
+                    for(int k = 0; k < dom1.size(); k++){
                         switch (dom1.get(k)) {
                             case "VARCHAR": tTemp.addStringComponent((infile2.readLine()));
                             break;
@@ -86,7 +82,7 @@ public class Database {
                             break;
                             case "DECIMAL": tTemp.addDoubleComponent(Double.parseDouble((infile2.readLine())));
                             break;
-                        } 
+                        }
                     }
                 } catch (IOException c) {
                     System.out.println("Error reading file");
@@ -96,11 +92,11 @@ public class Database {
                 // the finished tuple is added to relation
                 rTemp.addTuple(tTemp);
             }
-            
+
             // the finished relation is added to the relation
-            this.addRelation(nameOfRelation, rTemp);		  
+            this.addRelation(nameOfRelation, rTemp);
         }
-        
+
         // files are closed
         try {
             fin1.close();
@@ -131,7 +127,7 @@ public class Database {
         } else {
         relations.remove(rname);
         return true;
-        }       
+        }
     }
 
     // Return true if relation with name rname exists in HashMap
@@ -158,7 +154,7 @@ public class Database {
     public void displaySchema() {
         for (Map.Entry<String, Relation> entry : relations.entrySet()) {
             System.out.print(entry.getKey() + "(");
-            entry.getValue().displayRelation();           
+            entry.getValue().displayRelation();
             System.out.print(")");
             System.out.println();
         }
