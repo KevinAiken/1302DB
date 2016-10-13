@@ -56,6 +56,33 @@ public class Tuple {
     return cTuple;
   }
 
+/*  public Tuple concatenate(Tuple t2, ArrayList<String> attrs, ArrayList<String>
+  doms) {
+    Tuple cTuple = new Tuple(attrs, doms);
+    for(int i=0; i < this.tuple.size(); i++) {
+      switch (cTuple.domains.get(i)) {
+          case "VARCHAR": cTuple.addStringComponent((String)this.tuple.get(i));
+          break;
+          case "INTEGER": cTuple.addIntegerComponent((int)this.tuple.get(i));
+          break;
+          case "DECIMAL": cTuple.addDoubleComponent((double)this.tuple.get(i));
+          break;
+      }
+    }
+    for(int i=0; i < t2.size(); i++) {
+      switch (cTuple.domains.get(i)) {
+          case "VARCHAR": cTuple.addStringComponent((String)t2.get(i));
+          break;
+          case "INTEGER": cTuple.addIntegerComponent((int)t2.get(i));
+          break;
+          case "DECIMAL": cTuple.addDoubleComponent((double)t2.get(i));
+          break;
+      }
+    }
+    System.out.println(cTuple);
+    return cTuple;
+  }*/
+
   // return String representation of tuple; See output of run for format.
   public String toString() {
        tToString = "";
