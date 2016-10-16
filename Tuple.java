@@ -56,7 +56,7 @@ public class Tuple {
     return cTuple;
   }
 
-/*  public Tuple concatenate(Tuple t2, ArrayList<String> attrs, ArrayList<String>
+  public Tuple concatenate(Tuple t2, ArrayList<String> attrs, ArrayList<String>
   doms) {
     Tuple cTuple = new Tuple(attrs, doms);
     for(int i=0; i < this.tuple.size(); i++) {
@@ -81,7 +81,7 @@ public class Tuple {
     }
     System.out.println(cTuple);
     return cTuple;
-  }*/
+  }
 
   // return String representation of tuple; See output of run for format.
   public String toString() {
