@@ -69,30 +69,27 @@ public class Tuple {
           break;
       }
     }
-    for(int i=0; i < t2.size(); i++) {
+    for(int i=0; i < t2.tuple.size(); i++) {
       switch (cTuple.domains.get(i)) {
-          case "VARCHAR": cTuple.addStringComponent((String)t2.get(i));
+          case "VARCHAR": cTuple.addStringComponent((String)t2.tuple.get(i));
           break;
-          case "INTEGER": cTuple.addIntegerComponent((int)t2.get(i));
+          case "INTEGER": cTuple.addIntegerComponent((int)t2.tuple.get(i));
           break;
-          case "DECIMAL": cTuple.addDoubleComponent((double)t2.get(i));
+          case "DECIMAL": cTuple.addDoubleComponent((double)t2.tuple.get(i));
           break;
       }
     }
-    System.out.println(cTuple);
     return cTuple;
   }
 
   // return String representation of tuple; See output of run for format.
   public String toString() {
        tToString = "";
-        for(int i = 0; i< tuple.size() ;i++) {
-            if((i%attributes.size()) == 0) {
-                tToString += "\n" + tuple.get(i) + ":";
-            } else {
-                tToString +=  tuple.get(i) + ":";
-            }
+        for(int i = 0; i< tuple.size() ;i++) {      
+                tToString += tuple.get(i) + ":";
         }
+
+        //System.out.println("This is the tuple: " + tToString);
         return tToString;
   }
 

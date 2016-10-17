@@ -163,7 +163,11 @@ public class Relation {
         rToString += "\n";
         rToString += "Number of tuples: " + table.size();
         rToString += "\n";
-        rToString += table.toString();
+      //  rToString += "\n";
+      //  rToString += table.toString();
+        for(int i = 0; i < table.size(); i++) {
+          rToString += "\n" + table.get(i);
+        }
         rToString += "\n";
         rToString = rToString.replace("[", "").replace("]", "").replace(",", "");
         return rToString;
