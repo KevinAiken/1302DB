@@ -149,6 +149,26 @@ public class Relation {
     return sampleRelation;
   }
 
+  // Returns a new relation with same tuples but different column names
+  public Relation rename(ArrayList<String> cnames) {
+    ArrayList<String> newAttr = new ArrayList<String>();
+    ArrayList<String> newDom = new ArrayList<String>();
+    newAttr = cNames;
+    newDom = this.domains;
+    Relation rel = new Relation(this.name, newAttr, newDom);
+    for(tuple t : this.table) {
+      rel.addTuple(t.clone(newAttr));
+    }
+    return rel;
+  }
+
+  // Cartesion product of two relations.
+  public Relation times(Relation r2) {
+      ArrayList<String> newAttr = new ArrayList<String>();
+      ArrayList<String> newDom = new ArrayList<String>();
+
+  }
+
   // Return String version of relation; See output of run for format.
   public String toString() {
         rToString = "";
@@ -163,8 +183,6 @@ public class Relation {
         rToString += "\n";
         rToString += "Number of tuples: " + table.size();
         rToString += "\n";
-      //  rToString += "\n";
-      //  rToString += table.toString();
         for(int i = 0; i < table.size(); i++) {
           rToString += "\n" + table.get(i);
         }
