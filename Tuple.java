@@ -98,8 +98,44 @@ public class Tuple {
         }
       }
     }
-
     return newTuple;
+  }
+
+  public boolean select(String lopType, String lopValue, String comparison,
+                        String ropType, String ropValue) {
+      switch(lopType) {
+        case "col":
+          switch(ropType) {
+            case: "col":
+            break;
+            case: "num":
+            break;
+            case: "str":
+            break;
+          }
+        break;
+        case "num":
+        switch(ropType) {
+          case: "col":
+          break;
+          case: "num":
+          break;
+          case: "str":
+          break;
+        }
+        break;
+        case "str":
+        switch(ropType) {
+          case: "col":
+          break;
+          case: "num":
+          break;
+          case: "str":
+          break;
+        }
+
+      }
+      default: return false;
   }
 
   // return String representation of tuple; See output of run for format.
