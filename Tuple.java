@@ -82,10 +82,30 @@ public class Tuple {
     return cTuple;
   }
 
+  public Tuple project(ArrayList<String> cnames) {
+    Tuple newTuple = new Tuple(this.attributes, this.domains);
+    for(int i = 0; i < this.tuple.size(); i++) {
+      for(int j = 0; j < cnames.size(); j++){
+        if(this.attributes.get(i) == cnames.get(j)){
+          switch (newTuple.domains.get(i)) {
+              case "VARCHAR": newTuple.addStringComponent((String)this.tuple.get(i));
+              break;
+              case "INTEGER": newTuple.addIntegerComponent((int)this.tuple.get(i));
+              break;
+              case "DECIMAL": newTuple.addDoubleComponent((double)this.tuple.get(i));
+              break;
+          }
+        }
+      }
+    }
+
+    return newTuple;
+  }
+
   // return String representation of tuple; See output of run for format.
   public String toString() {
        tToString = "";
-        for(int i = 0; i< tuple.size() ;i++) {      
+        for(int i = 0; i< tuple.size() ;i++) {
                 tToString += tuple.get(i) + ":";
         }
 

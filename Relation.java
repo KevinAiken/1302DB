@@ -187,6 +187,16 @@ public class Relation {
       return newRelation;
   }
 
+  public Relation project(ArrayList<String> cnames){
+    Relation rel = new Relation(this.name, this.attributes, this.domains);
+    System.out.println(cnames.size());
+
+    for(int i = 0; i < this.table.size(); i++){
+      rel.addTuple(this.table.get(i).project(cnames));
+    }
+    rel.removeDuplicates();
+    return rel;
+  }
   // Return String version of relation; See output of run for format.
   public String toString() {
         rToString = "";
