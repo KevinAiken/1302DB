@@ -46,7 +46,6 @@ public class DriverW7 {
     r1.addTuple(t);
 
     db.addRelation("STUDENT",r1);
-
     System.out.println(r1);
 
     ArrayList<String> cnames1 = new ArrayList<String>();

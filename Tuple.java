@@ -101,41 +101,52 @@ public class Tuple {
     return newTuple;
   }
 
-  public boolean select(String lopType, String lopValue, String comparison,
-                        String ropType, String ropValue) {
-      switch(lopType) {
-        case "col":
-          switch(ropType) {
-            case: "col":
-            break;
-            case: "num":
-            break;
-            case: "str":
-            break;
-          }
-        break;
-        case "num":
-        switch(ropType) {
-          case: "col":
-          break;
-          case: "num":
-          break;
-          case: "str":
-          break;
-        }
-        break;
-        case "str":
-        switch(ropType) {
-          case: "col":
-          break;
-          case: "num":
-          break;
-          case: "str":
-          break;
-        }
+  public boolean select(String lopType, String lopValue, String comparison, String ropType, String ropValue) {
+      if(lopType.equals("col") && ropType.equals("num")) {
+          for(int i = 0; i < attributes.size(); i++){
+            if(domains.get(i).equals("INTEGER")){
 
-      }
-      default: return false;
+              if(comparison.equals("=")){
+                return (Integer.parseInt(ropValue) == (int)this.tuple.get(i));
+              } else if (comparison.equals(">")){
+                return (Integer.parseInt(ropValue) > (int)this.tuple.get(i));
+              } else if (comparison.equals("<")){
+                return (Integer.parseInt(ropValue) < (int)this.tuple.get(i));
+              } else if (comparison.equals(">=")){
+                return (Integer.parseInt(ropValue) >= (int)this.tuple.get(i));
+              } else if (comparison.equals("<=")){
+                return (Integer.parseInt(ropValue) <= (int)this.tuple.get(i));
+              } else {
+                return false;
+              }
+            } else if (domains.get(i).equals("DECIMAL")) {
+              if(comparison.equals("=")){
+                return (Integer.parseInt(ropValue) == (Double)this.tuple.get(i));
+              } else if (comparison.equals(">")){
+                return (Integer.parseInt(ropValue) > (Double)this.tuple.get(i));
+              } else if (comparison.equals("<")){
+                return (Integer.parseInt(ropValue) < (Double)this.tuple.get(i));
+              } else if (comparison.equals(">=")){
+                return (Integer.parseInt(ropValue) >= (Double)this.tuple.get(i));
+              } else if (comparison.equals("<=")){
+                return (Integer.parseInt(ropValue) <= (Double)this.tuple.get(i));
+              } else {
+                return false;
+              }
+            }
+            }
+      } else if (lopType.equals("col") && ropType.equals("str")) {
+          for(int i = 0; i < attributes.size(); i++){
+              if(attributes.get(i).equals(lopValue)){
+                  if(ropValue.equals(this.tuple.get(i))){
+                    return true;
+                  }
+                }
+              }
+            }
+
+        return false;
+
   }
 
   // return String representation of tuple; See output of run for format.

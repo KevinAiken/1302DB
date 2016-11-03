@@ -189,13 +189,23 @@ public class Relation {
 
   public Relation project(ArrayList<String> cnames){
     Relation rel = new Relation(this.name, this.attributes, this.domains);
-    System.out.println(cnames.size());
 
     for(int i = 0; i < this.table.size(); i++){
       rel.addTuple(this.table.get(i).project(cnames));
     }
     rel.removeDuplicates();
     return rel;
+  }
+
+  public Relation select(String lopType, String lopValue, String comparison, String ropType, String ropValue){
+    Relation newRelation = new Relation("sample", this.attributes, this.domains);
+
+    for(int i = 0; i < this.table.size(); i++){
+      if(this.table.get(i).select(lopType, lopValue, comparison, ropType, ropValue)){
+        newRelation.table.add(this.table.get(i));
+      }
+    }
+    return newRelation;
   }
   // Return String version of relation; See output of run for format.
   public String toString() {
