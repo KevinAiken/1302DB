@@ -103,38 +103,41 @@ public class Tuple {
 
   public boolean select(String lopType, String lopValue, String comparison, String ropType, String ropValue) {
       if(lopType.equals("col") && ropType.equals("num")) {
-          for(int i = 0; i < attributes.size(); i++){
-            if(domains.get(i).equals("INTEGER")){
-
-              if(comparison.equals("=")){
-                return (Integer.parseInt(ropValue) == (int)this.tuple.get(i));
-              } else if (comparison.equals(">")){
-                return (Integer.parseInt(ropValue) > (int)this.tuple.get(i));
-              } else if (comparison.equals("<")){
-                return (Integer.parseInt(ropValue) < (int)this.tuple.get(i));
-              } else if (comparison.equals(">=")){
-                return (Integer.parseInt(ropValue) >= (int)this.tuple.get(i));
-              } else if (comparison.equals("<=")){
-                return (Integer.parseInt(ropValue) <= (int)this.tuple.get(i));
-              } else {
-                return false;
-              }
-            } else if (domains.get(i).equals("DECIMAL")) {
-              if(comparison.equals("=")){
-                return (Integer.parseInt(ropValue) == (Double)this.tuple.get(i));
-              } else if (comparison.equals(">")){
-                return (Integer.parseInt(ropValue) > (Double)this.tuple.get(i));
-              } else if (comparison.equals("<")){
-                return (Integer.parseInt(ropValue) < (Double)this.tuple.get(i));
-              } else if (comparison.equals(">=")){
-                return (Integer.parseInt(ropValue) >= (Double)this.tuple.get(i));
-              } else if (comparison.equals("<=")){
-                return (Integer.parseInt(ropValue) <= (Double)this.tuple.get(i));
-              } else {
-                return false;
+        for(int j = 0; j < attributes.size(); j++){
+            if(attributes.get(j).equals(lopValue)){
+              for(int i = 0; i < this.tuple.size(); i++){
+                if ((Double.parseDouble(ropValue) % 1) == 0) {
+                  if(comparison.equals("=")){
+                    return (Integer.parseInt(ropValue) == (int)this.tuple.get(j));
+                  } else if (comparison.equals(">")){
+                    return (Integer.parseInt(ropValue) > (int)this.tuple.get(j));
+                  } else if (comparison.equals("<")){
+                    return (Integer.parseInt(ropValue) < (int)this.tuple.get(j));
+                  } else if (comparison.equals(">=")){
+                    return (Integer.parseInt(ropValue) >= (int)this.tuple.get(j));
+                  } else if (comparison.equals("<=")){
+                    return (Integer.parseInt(ropValue) <= (int)this.tuple.get(j));
+                  } else {
+                    return false;
+                  }
+                } else if ((Double.parseDouble(ropValue) % 1) != 0) {
+                  if(comparison.equals("=")){
+                    return (Double.parseDouble(ropValue) == (Double)this.tuple.get(j));
+                  } else if (comparison.equals(">")){
+                    return (Double.parseDouble(ropValue) < (Double)this.tuple.get(j));
+                  } else if (comparison.equals("<")){
+                    return (Double.parseDouble(ropValue) > (Double)this.tuple.get(j));
+                  } else if (comparison.equals(">=")){
+                    return (Double.parseDouble(ropValue) <= (Double)this.tuple.get(j));
+                  } else if (comparison.equals("<=")){
+                    return (Double.parseDouble(ropValue) >= (Double)this.tuple.get(j));
+                  } else {
+                    return false;
+                  }
+                }
               }
             }
-            }
+          }
       } else if (lopType.equals("col") && ropType.equals("str")) {
           for(int i = 0; i < attributes.size(); i++){
               if(attributes.get(i).equals(lopValue)){
