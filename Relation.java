@@ -19,6 +19,8 @@ public class Relation {
   private String rToString = "";
 
   private ArrayList<Tuple> tempTable;
+  private ArrayList<String> tempAttr;
+  private ArrayList<String> tempDom;
 
   private Relation sampleRelation;
   private Relation sampleRelation2;
@@ -206,6 +208,44 @@ public class Relation {
       }
     }
     return newRelation;
+  }
+
+  public Relation join(Relation r2) {
+    ArrayList<String> newAttr = new ArrayList<String>();
+    ArrayList<String> newDom = new ArrayList<String>();
+    for(int i = 0; i < this.domains.size(); i++) {
+      newDom.add(this.domains.get(i));
+    }
+    for(int i = 0; i < r2.domains.size(); i++) {
+      newDom.add(r2.domains.get(i));
+    }
+    for(int i = 0; i < this.attributes.size(); i++) {
+      newAttr.add(this.attributes.get(i));
+    }
+    for(int i = 0; i < r2.attributes.size(); i++) {
+      newAttr.add(r2.attributes.get(i));
+    }
+    tempAttr = newAttr;
+    for(int i = 0; i < newAttr.size(); i++){
+        for(int j = i+1; j < newAttr.size(); j++){
+           if(tempAttr.get(i).equals(newAttr.get(j))){
+               newAttr.remove(j);
+               newDom.remove(j);
+               j--;
+           }
+        }
+    }
+    Relation rel = new Relation("newRel", newAttr, newDom);
+    for(int i = 0; i < this.table.size(); i++){
+      for(int j = 0; j < r2.table.size(); j++){
+
+        if(((this.table.get(i)).clone(this.attributes).join(r2.table.get(j).clone(r2.attributes), newAttr, newDom)) != null){
+
+          rel.table.add(this.table.get(i).clone(this.attributes).join(r2.table.get(j).clone(r2.attributes), newAttr, newDom));
+      }
+    }
+    }
+    return rel;
   }
   // Return String version of relation; See output of run for format.
   public String toString() {

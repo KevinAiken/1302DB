@@ -147,11 +147,52 @@ public class Tuple {
                 }
               }
             }
-
         return false;
-
   }
 
+  public Tuple join(Tuple t2, ArrayList attr, ArrayList dom){
+    Tuple cTuple = new Tuple(attr, dom);
+    int tempInt = 0;
+    for(int i=0; i < this.tuple.size(); i++) {
+      switch (cTuple.domains.get(i)) {
+          case "VARCHAR": cTuple.addStringComponent((String)this.tuple.get(i));
+          break;
+          case "INTEGER": cTuple.addIntegerComponent((int)this.tuple.get(i));
+          break;
+          case "DECIMAL": cTuple.addDoubleComponent((double)this.tuple.get(i));
+          break;
+      }
+    }
+    for(int i = 0; i < this.tuple.size(); i++){
+      for(int j = 0; j < t2.tuple.size(); j++){
+        if(this.attributes.get(i) == t2.attributes.get(j)){
+
+          if((this.tuple.get(i)).equals(t2.tuple.get(j))){
+            tempInt = j;
+
+          } else {
+
+            return null;
+          }
+        }
+      }
+    }
+
+      for(int j = 0; j < t2.tuple.size(); j++){
+        if(j != tempInt){
+          switch (t2.domains.get(j)) {
+              case "VARCHAR": cTuple.addStringComponent((String)t2.tuple.get(j));
+              break;
+              case "INTEGER": cTuple.addIntegerComponent((int)t2.tuple.get(j));
+              break;
+              case "DECIMAL": cTuple.addDoubleComponent((double)t2.tuple.get(j));
+              break;
+          }
+      }
+    }
+
+    return cTuple;
+  }
   // return String representation of tuple; See output of run for format.
   public String toString() {
        tToString = "";
