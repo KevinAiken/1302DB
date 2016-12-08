@@ -25,7 +25,6 @@ public class Database {
 
     // Create the database object by reading from directory
     public void initializeDatabase(String dir) {
-
         try {
             fin1 = new FileInputStream(dir);
             infile1 = new BufferedReader(new InputStreamReader(fin1));
