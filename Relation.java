@@ -153,14 +153,10 @@ public class Relation {
 
   // Returns a new relation with same tuples but different column names
   public Relation rename(ArrayList<String> cnames) {
-    ArrayList<String> newAttr = new ArrayList<String>();
-    ArrayList<String> newDom = new ArrayList<String>();
-    newAttr = cnames;
-    newDom = this.domains;
-    Relation rel = new Relation(this.name, newAttr, newDom);
-    for(Tuple t : this.table) {
-      rel.addTuple(t.clone(newAttr));
-    }
+    Relation rel = new Relation(this.name, cnames, this.domains);
+    for(int i = 0; i < this.table.size(); i++) {
+            rel.addTuple(this.table.get(i).clone(cnames));
+        }
     return rel;
   }
 
@@ -190,12 +186,24 @@ public class Relation {
   }
 
   public Relation project(ArrayList<String> cnames){
-    Relation rel = new Relation(this.name, this.attributes, this.domains);
+    ArrayList<String> newDom = new ArrayList<>();
+    ArrayList<Tuple> tempAL = new ArrayList<>();
 
     for(int i = 0; i < this.table.size(); i++){
-      rel.addTuple(this.table.get(i).project(cnames));
+      tempAL.add(this.table.get(i).project(cnames));
     }
+    for (int i = 0; i < cnames.size(); i++) {
+        for (int j = 0; j < this.attributes.size(); j++) {
+          if (cnames.get(i).equals(this.attributes.get(j))) {
+              newDom.add(this.domains.get(j));
+          }
+        }
+    }
+    
+    Relation rel = new Relation(this.name, cnames, newDom);
+    rel.table = tempAL;
     rel.removeDuplicates();
+
     return rel;
   }
 
@@ -211,8 +219,8 @@ public class Relation {
   }
 
   public Relation join(Relation r2) {
-    ArrayList<String> newAttr = new ArrayList<String>();
-    ArrayList<String> newDom = new ArrayList<String>();
+    ArrayList<String> newAttr = new ArrayList<String>(this.attributes);
+    ArrayList<String> newDom = new ArrayList<String>(this.domains);
     for(int i = 0; i < this.domains.size(); i++) {
       newDom.add(this.domains.get(i));
     }
@@ -235,7 +243,9 @@ public class Relation {
            }
         }
     }
+
     Relation rel = new Relation("newRel", newAttr, newDom);
+
     for(int i = 0; i < this.table.size(); i++){
       for(int j = 0; j < r2.table.size(); j++){
 
@@ -245,8 +255,10 @@ public class Relation {
       }
     }
     }
+
     return rel;
   }
+
   // Return String version of relation; See output of run for format.
   public String toString() {
         rToString = "";

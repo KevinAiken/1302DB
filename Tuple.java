@@ -86,7 +86,7 @@ public class Tuple {
     Tuple newTuple = new Tuple(this.attributes, this.domains);
     for(int i = 0; i < this.tuple.size(); i++) {
       for(int j = 0; j < cnames.size(); j++){
-        if(this.attributes.get(i) == cnames.get(j)){
+        if(this.attributes.get(i).equals(cnames.get(j))){
           switch (newTuple.domains.get(i)) {
               case "VARCHAR": newTuple.addStringComponent((String)this.tuple.get(i));
               break;
@@ -153,7 +153,7 @@ public class Tuple {
   public Tuple join(Tuple t2, ArrayList attr, ArrayList dom){
     Tuple cTuple = new Tuple(attr, dom);
     int tempInt = 0;
-    for(int i=0; i < this.tuple.size(); i++) {
+    for(int i=0; i < this.attributes.size(); i++) {
       switch (cTuple.domains.get(i)) {
           case "VARCHAR": cTuple.addStringComponent((String)this.tuple.get(i));
           break;
@@ -165,7 +165,7 @@ public class Tuple {
     }
     for(int i = 0; i < this.tuple.size(); i++){
       for(int j = 0; j < t2.tuple.size(); j++){
-        if(this.attributes.get(i) == t2.attributes.get(j)){
+        if(this.attributes.get(i).equals (t2.attributes.get(j))){
 
           if((this.tuple.get(i)).equals(t2.tuple.get(j))){
             tempInt = j;
@@ -193,6 +193,7 @@ public class Tuple {
 
     return cTuple;
   }
+
   // return String representation of tuple; See output of run for format.
   public String toString() {
        tToString = "";
